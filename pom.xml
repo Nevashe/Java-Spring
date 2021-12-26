@@ -18,6 +18,7 @@
         <module>firstapp</module>
         <module>hm3</module>
         <module>hm4</module>
+        <module>hm5</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
