@@ -11,6 +11,10 @@ import java.util.List;
 public class ProductService {
     private ProductRepository productRepository;
 
+
+
+    private static final int scrapProduct = 2;
+
     @Autowired
     public void setProductRepository(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -22,5 +26,23 @@ public class ProductService {
       //  return Product.withCategory(products);
         return products;
 
+    }
+
+    public void removeById(Long productId) {
+        productRepository.deleteById(productId);
+    }
+
+    public List<Product> getTenProducts(int num) {
+        int shift = scrapProduct * (num - 1);
+        int scrap = scrapProduct;
+        return (List<Product>) productRepository.myQuery(shift, scrap);
+    }
+
+
+    public long getSizeProducts() {
+        return productRepository.count();
+    }
+    public static int getScrapProduct() {
+        return scrapProduct;
     }
 }
