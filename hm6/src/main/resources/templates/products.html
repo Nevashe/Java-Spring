@@ -39,7 +39,7 @@
             <td th:text="${product.id_category.category}"/>
             <td th:text="${product.price}"/>
             <td>
-               <a class="btn btn-danger" th:href="@{'remove/' + ${product.id} + '?page='+ ${curPage}}"
+               <a  class="btn btn-danger" th:href="@{'remove/' + ${product.id} + '?page='+ ${curPage}}"
                   role="button">Remove</a>
             </td>
         </tr>

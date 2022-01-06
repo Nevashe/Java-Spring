@@ -19,8 +19,9 @@
     <!--       <module>hm3</module>-->
           <module>hm4</module>
    <!--        <module>hm5</module>-->
-          <module>hm6</module>
-      </modules>
+<!--          <module>hm6</module>-->
+        <module>hm8</module>
+    </modules>
       <properties>
           <maven.compiler.source>8</maven.compiler.source>
           <maven.compiler.target>8</maven.compiler.target>
