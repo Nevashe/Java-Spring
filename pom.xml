@@ -16,15 +16,17 @@
     <modules>
         <module>hm2</module>
         <module>firstapp</module>
-        <module>hm3</module>
-        <module>hm4</module>
-        <module>hm5</module>
+    <!--       <module>hm3</module>-->
+          <module>hm4</module>
+   <!--        <module>hm5</module>-->
+<!--          <module>hm6</module>-->
+        <module>hm8</module>
     </modules>
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-<!--    <dependencies>-->
+      <properties>
+          <maven.compiler.source>8</maven.compiler.source>
+          <maven.compiler.target>8</maven.compiler.target>
+      </properties>
+  <!--    <dependencies>-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework</groupId>-->
 <!--            <artifactId>spring-core</artifactId>-->

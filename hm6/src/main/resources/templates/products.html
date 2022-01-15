@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:list-style-type="http://www.w3.org/1999/xhtml">
 <head>
     <title>Shop Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -13,26 +13,14 @@
 
 <body>
 
-<div class="fluid-container" th:fragment="navi(activeTab)">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary ">
-
-        <img th:src="@{/images/icon.png}" />
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item" th:classappend="${activeTab == 'shop' ? 'active' : ''}">
-                    <a class="nav-link" th:href="@{/products}">Товары<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
+<div class="fluid-container">
+    <nav>
+        <div th:replace="~{my-menu :: mymenu(Products)}">
         </div>
     </nav>
-    <div class="visible-md" style="height:80px;"></div>
 </div>
 
-<div class="container">
+<div class="container" th:with="curPage=${#httpServletRequest.getParameter('page')}">
     <br>
     <h1>@GeekMarket</h1>
     <table class="table">
@@ -42,16 +30,27 @@
             <th>Товар</th>
             <th>Категория</th>
             <th>Цена</th>
+            <th>Удаление</th>
         </tr>
         </thead>
-
         <tr class="responsive-row" th:each="product : ${products}">
             <td th:text="${product.id}"/>
             <td th:text="${product.title}"/>
             <td th:text="${product.id_category.category}"/>
             <td th:text="${product.price}"/>
+            <td>
+               <a  class="btn btn-danger" th:href="@{'remove/' + ${product.id} + '?page='+ ${curPage}}"
+                  role="button">Remove</a>
+            </td>
         </tr>
     </table>
+    <center class="fluid-container">
+<!--        Можно было еще добавить условие проверки количества страниц, но пока не стал-->
+            <nav>
+                <div th:replace="~{pages}">
+                </div>
+            </nav>
+    </center>
 </div>
 
 </body>

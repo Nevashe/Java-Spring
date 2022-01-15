@@ -22,8 +22,8 @@ public class ListProducts extends HttpServlet {
         resp.getWriter().printf("<h1>List products</h1>");
         resp.getWriter().printf("<table>" +
                 "<tr><th>ID</th><th>  Title  </th><th>  Cost  </th></tr>");
-        Product[] products = Product.getProduct();
-        for (Product product : products) {
+        Producttt[] products = Producttt.getProduct();
+        for (Producttt product : products) {
             resp.getWriter().printf("<tr><td>%d</td><td>%s</td><td>%d</td></tr>",
                     product.getId(), product.getTitle(), product.getCost());
         }
