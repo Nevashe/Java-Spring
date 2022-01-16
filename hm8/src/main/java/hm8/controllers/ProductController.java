@@ -5,14 +5,15 @@ import hm8.entities.Product;
 import hm8.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/")
+@Controller
 public class ProductController {
     private ProductService productService;
 
@@ -21,10 +22,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-
     @GetMapping("/products")
-    @ModelAttribute("products")
-    public List<Product> shopPage(Model model, @RequestParam int page) {
+    public String shopPage(Model model, @RequestParam int page) {
 
         //        List<Product> allProducts = productService.getAllProducts();
         List<Product> tenProducts;
@@ -35,7 +34,7 @@ public class ProductController {
         }
         long size = productService.getSizeProducts();
 
-        //model.addAttribute("products", tenProducts);
+        model.addAttribute("products", tenProducts);
         int tmp = ((int)size)%ProductService.getScrapProduct()== 0? 0:1;
         int numberPages = ((int)size)/ProductService.getScrapProduct()+tmp;
 
@@ -46,37 +45,30 @@ public class ProductController {
             }
         }
         model.addAttribute("pages", pages);
-        return tenProducts;
+        return "products";
     }
 
     @GetMapping("/products/{id}")
-    @ModelAttribute("product")
     public String shopProduct(Model model, @PathVariable(value = "id") Long ProductId) {
         Product product = productService.getProductById(ProductId);
         model.addAttribute(product);
         return "product";
     }
-    @PostMapping("/products")
-    @ModelAttribute("products")
-    public Product addProduct(@RequestBody Product product) {
+
+    @PostMapping(value  = "/products",
+            produces ={"application/json"})
+    public String addProduct(@ModelAttribute Product p, MultipartFile file) {
+        Product product = p;
+
         product.setId(0L);
+        product = productService.save(product, file);
+        return "redirect:/products?page=1";
+    }
+
+    @PutMapping(path = "/products", consumes = {MediaType.APPLICATION_JSON_VALUE} )
+    public String updateProduct(@RequestBody Product product) {
         product = productService.saveOrUpdate(product);
-        return product;
+        return "products";
     }
 
-    @PutMapping(path = "/products", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    @ModelAttribute("products")
-    public Product updateProduct(@RequestBody Product product) {
-        product = productService.saveOrUpdate(product);
-        return product;
-    }
-
-    @ModelAttribute("products")
-    @DeleteMapping(path="/remove/{id}")
-    public String removeById(@PathVariable(value = "id") Long productId,
-                             @RequestParam(value = "page") int page) {
-        productService.removeById(productId);
-
-        return "redirect:/products?page=" + page;
-    }
 }

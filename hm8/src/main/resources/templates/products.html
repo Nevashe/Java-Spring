@@ -28,6 +28,7 @@
         <thead class="thead-dark">
         <tr>
             <th>id</th>
+            <th>Картинка</th>
             <th>Товар</th>
             <th>Категория</th>
             <th>Цена</th>
@@ -36,6 +37,8 @@
         </thead>
         <tr class="responsive-row" th:each="product : ${products}">
             <td th:text="${product.id}"/>
+            <td><img th:src="@{/images/products/{pathImg}(pathImg=${product.pathImg})}"
+                     width="60" height="60" alt="jpg"></td>
             <td th:text="${product.title}"/>
             <td th:text="${product.id_category.category}"/>
             <td th:text="${product.price}"/>
