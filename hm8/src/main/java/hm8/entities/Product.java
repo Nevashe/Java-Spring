@@ -20,6 +20,9 @@ public class Product {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "path_img")
+    private String pathImg;
+
     public Product() {
     }
 
@@ -60,4 +63,27 @@ public class Product {
     public void setId_category(Category id_category) {
         this.id_category = id_category;
     }
+
+
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
+    }
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", id_category=" +
+                "{"+
+                "id " + id_category.getId() +
+                "category " + id_category.getCategory() +
+                "}" +
+                ", price=" + price +
+                '}';
+    }
+
 }

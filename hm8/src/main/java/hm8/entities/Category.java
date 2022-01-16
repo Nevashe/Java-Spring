@@ -13,6 +13,13 @@ public class Category {
     @Column(name = "category")
     private String category;
 
+    public Category(String category) {
+        this.category = category;
+    }
+
+    public Category() {
+    }
+
     public Long getId() {
         return id;
     }
