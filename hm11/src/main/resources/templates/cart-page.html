@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Корзина</title>
+    <link rel="icon" type="image/png" th:href="@{/favicon.ico}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}"/>
+</head>
+
+<body>
+<div class="fluid-container">
+    <nav>
+        <div th:replace="~{my-menu :: mymenu(Cart)}"/>
+    </nav>
+    <div class="visible-md" style="height:80px;"> </div>
+</div>
+
+
+<div class="container">
+
+    <h1>Корзина</h1>
+
+    <div th:if="${cart.getItems().size() > 0}" >
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>№</th>
+                <th>Название товара</th>
+                <th>Цена за ед.</th>
+                <th>Кол-во</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cartItem, itrStat : ${cart.getItems()}">
+                <td th:text="${itrStat.index + fileStore}"/>
+                <td th:text="${cartItem.product.title}"/>
+                <td th:text="${cartItem.itemPrice}"/>
+                <td th:text="${cartItem.quantity}"/>
+                <td th:text="${cartItem.totalPrice}"/>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/cart/delete/' + ${cartItem.product.id}}"
+                       role="button">Remove</a>
+                </td>
+            </tr>
+            <tr>
+                <td/><td/><td/>
+                <td>Итого заказ:</td>
+                <td th:text="${cart.totalCost}"/>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+    </div>
+</div>
+</body>
+</html>

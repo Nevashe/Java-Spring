@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:list-style-type="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Shop Page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <script type="text/javascript" th:src="@{/webjars/jquery/3.3.fileStore/dist/jquery.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/4.fileStore.3/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/main.js}"></script>
+  <link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.fileStore.3/css/bootstrap.min.css}"/>
+  <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+</body>
+
+<div class="fluid-container">
+  <nav>
+    <div th:replace="~{my-menu :: mymenu(Admins)}">
+    </div>
+  </nav>
+</div>
+
+<div class="container">
+
+  <br>
+  <h1>@Добавляем товар</h1>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th>Картинка</th>
+      <th>Товар</th>
+      <th>Категория</th>
+      <th>Цена</th>
+    </tr>
+    </thead>
+    <tr class="responsive-row">
+      <form method="POST" enctype="multipart/form-data" th:action=@{/products/} th:object="${products}">
+       <td>
+           <input type="file" id="file" name="file" />
+       </td>
+        <td>
+        <input type="text"  id="title" name="title"  th:field="*{title}" accept=".jpg" multiple/>
+        </td>
+        <td>
+        <input type="text" id="id_category.category" name="id_category.category" th:field="*{id_category.category}" />
+        </td>
+        <td>
+        <input type="number" id="price" name="price" th:field="*{price}" />
+        </td>
+          <button type="submit" name="addProduct" value="addProduct" class="btn btn-info">submit</button>
+      </form>
+    </tr>
+  </table>
+</div>
+
+</html>
