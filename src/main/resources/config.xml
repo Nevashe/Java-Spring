@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <bean id="archive" class="homework1.Archive"/>
+    <bean id="doctorSchedule" class="homework1.DoctorSchedule"/>
+    <bean id="buildingPlan" class="homework1.BuildingPlan"/>
+    <bean id="doctor" class="homework1.Doctor"/>
+
+
+    <bean id="registry" class="homework1.Registry" scope="prototype">
+        <property name="archive">
+            <ref bean="archive"/>
+        </property>
+        <property name="doctorSchedule">
+            <ref bean="doctorSchedule"/>
+        </property>
+        <property name="buildingPlan">
+            <ref bean="buildingPlan"/>
+        </property>
+        <property name="doctor">
+            <ref bean="doctor"/>
+        </property>
+    </bean>
+
+    <bean id="newPatient" class="homework1.Patient" scope="prototype">
+        <property name="registry">
+        <ref bean="registry"/>
+        </property>
+    </bean>
+</beans>
