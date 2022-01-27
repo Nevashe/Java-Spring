@@ -41,7 +41,7 @@
             </thead>
             <tbody>
             <tr th:each="cartItem, itrStat : ${cart.getItems()}">
-                <td th:text="${itrStat.index + fileStore}"/>
+                <td th:text="${itrStat.index}"/>
                 <td th:text="${cartItem.product.title}"/>
                 <td th:text="${cartItem.itemPrice}"/>
                 <td th:text="${cartItem.quantity}"/>

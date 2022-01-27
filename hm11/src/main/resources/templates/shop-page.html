@@ -37,6 +37,10 @@
         <button type="submit" class="btn btn-primary">Фильтровать</button>
     </form>
 
+    <form th:action="@{/shop}" method="get">
+        <button th:action="@{/shop}" type="submit" class="btn btn-primary">Сбросить фильтры</button>
+    </form>
+
     <br>
 
     <table class="table table-hover">
@@ -45,6 +49,7 @@
             <th>ID</th>
             <th>Картинка</th>
             <th>Название товара</th>
+            <th>Категория</th>
             <th>Цена</th>
             <th></th>
         </tr>
@@ -58,6 +63,7 @@
                 <img width="40" height="40" th:src="@{/images/products/{pathImg}(pathImg=${product.pathImg})}" />
             </td>
             <td th:text="${product.title}"/>
+            <td th:text="${product.id_category.category}"/>
             <td th:text="${product.price}"/>
             <td sec:authorize="hasRole('USER')" >
                 <a th:href="@{'/cart/add/' + ${product.id}}" class="btn btn-primary">Добавить в корзину</a>
@@ -65,13 +71,10 @@
         </tr>
         </tbody>
     </table>
-
     <nav aria-label="Page navigation example">
         <ul class="pagination">
-            <li th:each="i : ${#numbers.sequence(fileStore, totalPage, fileStore)}">
-                <a th:class="page-link" th:text="${i}"
-                   th:classappend="${page == i ? 'active' : ''}"
-                   th:href="@{'/shop/?page=' + ${i} + ${filters}}"></a>
+            <li th:each="i : ${#numbers.sequence(1, totalPage, 1)}">
+                <a th:class="page-link" th:text="${i}" th:classappend="${page == i ? 'active' : ''}" th:href="@{'/shop/?page=' + ${i} + ${filters}}"></a>
             </li>
         </ul>
     </nav>
